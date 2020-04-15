@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wydxda.seat.mapper.SchoolMapper">
+    <resultMap id="BaseResultMap" type="com.wydxda.seat.model.School">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="school_name" jdbcType="VARCHAR" property="schoolName"/>
+        <result column="campuse_name" jdbcType="VARCHAR" property="campuses"/>
+        <result column="badge" jdbcType="VARCHAR" property="url"/>
+        <result column="f_PY" jdbcType="VARCHAR" property="group"/>
+    </resultMap>
+    <select id="getSchoolList" resultMap="BaseResultMap">
+    SELECT t1.id, t1.school_name,t1.campuse_name,t1.badge,t2.f_PY
+    FROM ls_schools t1, t_coslers t2
+    WHERE  CONV(HEX(LEFT(CONVERT(t1.school_name USING gbk ), 1)), 16, 10) BETWEEN t2.cBegin AND t2.cEnd
+    ORDER BY convert(t1.school_name using gbk) ASC
+  </select>
+</mapper>
