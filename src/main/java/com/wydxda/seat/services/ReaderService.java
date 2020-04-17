@@ -18,4 +18,19 @@ public class ReaderService {
     public Reader loginByPwd(Integer id, String pwd, Integer school_id){
         return readerMapper.loginByPwd(id,pwd,school_id);
     }
+
+    @Transactional
+    public Reader findByOpenid(String openid){
+        return readerMapper.findByOpenid(openid);
+    }
+
+    @Transactional
+    public boolean updateReaderInfo(String openid,Integer id,String url,String nickname){
+        return readerMapper.updateReaderInfo(openid,id,url,nickname);
+    }
+
+    @Transactional
+    public boolean updateReaderOpenid(String openid,Integer id){
+        return readerMapper.updateReaderOpenid(openid,id);
+    }
 }

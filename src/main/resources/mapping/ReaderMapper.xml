@@ -24,12 +24,32 @@
         </association>
 
     </resultMap>
+
     <select id="loginByPwd" resultMap="BaseResultMap">
-    SELECT * FROM ls_readers,ls_schools
-    WHERE ls_readers.s_id=ls_schools.id
-    AND ls_readers.id=#{id}
-    AND pwd=#{pwd}
-    AND s_id=#{s_id}
-    AND flag=0
-  </select>
+        SELECT * FROM ls_readers,ls_schools
+        WHERE ls_readers.s_id=ls_schools.id
+        AND ls_readers.id=#{id}
+        AND pwd=#{pwd}
+        AND s_id=#{s_id}
+        AND flag=0
+    </select>
+
+    <select id="findByOpenid" resultMap="BaseResultMap">
+        SELECT * FROM ls_readers,ls_schools
+        WHERE ls_readers.s_id=ls_schools.id
+        AND ls_readers.openid=#{openid}
+        AND flag=0
+    </select>
+
+    <update id="updateReaderInfo">
+        UPDATE ls_readers
+        SET openid=#{openid},url=#{url},nickname=#{nickname}
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateReaderOpenid">
+        UPDATE ls_readers
+        SET openid=#{openid}
+        WHERE id=#{id}
+    </update>
 </mapper>
