@@ -45,10 +45,10 @@ public class mainController {
             }
             if (processedList.size() > 0) {
                 SeatTemplete seatTemplete = new SeatTemplete();
-                seatTemplete.setName(seats.getTempleteName());
-                seatTemplete.setPrice(seats.getTempletePrice());
+                seatTemplete.setFloor_num(seats.getTempleteName());
+                seatTemplete.setRoom_num(seats.getTempleteRoom_num());
                 seatTemplete.setId(seats.getTempleteId());
-                seatTemplete.setFlag("0");
+                seatTemplete.setFlag(0);
                 seatTemplete.setStatus(false);
                 try {
                     seatService.insertSeatAndReplace(processedList, seatTemplete);

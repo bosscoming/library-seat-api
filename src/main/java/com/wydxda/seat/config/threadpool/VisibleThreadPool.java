@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * @author zenghao
+ * @author li-fengjie
  */
 @Slf4j
 public class VisibleThreadPool extends ThreadPoolTaskExecutor {

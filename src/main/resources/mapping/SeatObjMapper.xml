@@ -7,9 +7,9 @@
     <result column="y" jdbcType="INTEGER" property="y" />
     <result column="row" jdbcType="VARCHAR" property="row" />
     <result column="col" jdbcType="VARCHAR" property="col" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="price" jdbcType="INTEGER" property="price" />
     <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="flag" jdbcType="CHAR" property="flag" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
     <result column="templete_id" jdbcType="VARCHAR" property="templeteId" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -23,7 +23,7 @@
        #{item.y},
        #{item.row},
        #{item.col},
-       #{seatTemplete.price},
+       #{seatTemplete.room_num},
        #{item.type},
        #{item.flag},
        #{seatTemplete.id},

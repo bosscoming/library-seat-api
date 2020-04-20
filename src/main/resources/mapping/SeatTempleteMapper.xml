@@ -3,22 +3,22 @@
 <mapper namespace="com.wydxda.seat.mapper.SeatTempleteMapper">
   <resultMap id="BaseResultMap" type="com.wydxda.seat.model.SeatTemplete">
     <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="flag" jdbcType="CHAR" property="flag" />
+    <result column="floor_num" jdbcType="INTEGER" property="floor_num" />
+    <result column="room_num" jdbcType="INTEGER" property="room_num" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <insert id="insertTemplete"  useGeneratedKeys="true" keyProperty="seatTemplete.id" parameterType="com.wydxda.seat.model.SeatTemplete">
-    insert into ss_seat_templete (id,name,price,create_time,update_time,flag)
-    values(#{seatTemplete.id},#{seatTemplete.name},#{seatTemplete.price},now(),now(),#{seatTemplete.flag})
-    ON DUPLICATE KEY UPDATE name=VALUES(name),price=VALUES(price),create_time=now(),update_time=now();
+    insert into ss_seat_templete (id,floor_num,room_num,create_time,update_time,flag)
+    values(#{seatTemplete.id},#{seatTemplete.floor_num},#{seatTemplete.room_num},now(),now(),#{seatTemplete.flag})
+    ON DUPLICATE KEY UPDATE floor_num=VALUES(floor_num),room_num=VALUES(room_num),create_time=now(),update_time=now();
   </insert>
   <select id="findByTempleteList" resultMap="BaseResultMap">
-    select * from ss_seat_templete WHERE flag = "0"
+    select * from ss_seat_templete WHERE flag = 0
   </select>
   <update id="deleteTemplete">
-    update ss_seat_templete set flag = "1" WHERE id in
+    update ss_seat_templete set flag = 1 WHERE id in
     <foreach collection="idList" index="index" item="item" open="("
              separator="," close=")">
       #{item}

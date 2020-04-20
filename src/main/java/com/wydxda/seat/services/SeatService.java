@@ -40,8 +40,8 @@ public class SeatService {
         SeatTemplete seatTemplete = seatTempleteMapper.findTempleteById(id);
         seats.setSeats(existList);
         seats.setTempleteId(seatTemplete.getId());
-        seats.setTempleteName(seatTemplete.getName());
-        seats.setTempletePrice(seatTemplete.getPrice());
+        seats.setTempleteName(seatTemplete.getFloor_num());
+        seats.setTempleteRoom_num(seatTemplete.getRoom_num());
         return seats;
     }
 }

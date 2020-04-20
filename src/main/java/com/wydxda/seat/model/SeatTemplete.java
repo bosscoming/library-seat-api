@@ -3,6 +3,7 @@ package com.wydxda.seat.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,14 +13,13 @@ import java.util.Date;
 public class SeatTemplete {
     private Integer id;
 
-    private String name;
+    private Integer floor_num;
 
-    private String flag;
+    private Integer flag;
 
     private Boolean status;
 
-    private BigDecimal price;
-
+    private Integer room_num;
 
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")

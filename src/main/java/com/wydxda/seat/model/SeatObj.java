@@ -21,11 +21,11 @@ public class SeatObj {
 
     private String col;
 
-    private BigDecimal price;
+    private Integer price;
 
     private String type;
 
-    private String flag = "0";
+    private Integer flag = 0;
 
     private String templeteId;
 
