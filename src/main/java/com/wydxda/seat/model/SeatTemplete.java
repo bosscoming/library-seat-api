@@ -13,13 +13,13 @@ import java.util.Date;
 public class SeatTemplete {
     private Integer id;
 
-    private Integer floor_num;
+    private Integer floorNum;
 
     private Integer flag;
 
     private Boolean status;
 
-    private Integer room_num;
+    private Integer roomNum;
 
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")

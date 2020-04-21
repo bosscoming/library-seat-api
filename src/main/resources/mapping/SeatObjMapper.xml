@@ -7,7 +7,7 @@
     <result column="y" jdbcType="INTEGER" property="y" />
     <result column="row" jdbcType="VARCHAR" property="row" />
     <result column="col" jdbcType="VARCHAR" property="col" />
-    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="room_num" jdbcType="INTEGER" property="roomNum" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="flag" jdbcType="INTEGER" property="flag" />
     <result column="templete_id" jdbcType="VARCHAR" property="templeteId" />
@@ -15,7 +15,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <insert id="insertSeat">
-    insert into ss_seats (x, y,row,col,price,type,flag,templete_id,create_time,update_time)
+    insert into ls_seats (x, y,row,col,room_num,type,flag,templete_id,create_time,update_time)
     values
     <foreach collection="seatList" index="index" item="item" separator=",">
       (
@@ -23,7 +23,7 @@
        #{item.y},
        #{item.row},
        #{item.col},
-       #{seatTemplete.room_num},
+       #{seatTemplete.roomNum},
        #{item.type},
        #{item.flag},
        #{seatTemplete.id},
@@ -33,13 +33,13 @@
     </foreach>
   </insert>
   <delete id="deleteByIdList" >
-    delete from ss_seats WHERE id in
+    delete from ls_seats WHERE id in
     <foreach collection="idList" index="index" item="item" open="("
              separator="," close=")">
       #{item}
     </foreach>
   </delete>
   <select id="findByTempleteId" resultMap="BaseResultMap">
-    select * from ss_seats WHERE templete_id = #{templeteId}
+    select * from ls_seats WHERE templete_id = #{templeteId}
   </select>
 </mapper>

@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class Seats {
     private List<SeatObj> seats;
-    private Integer templeteName;
+    private Integer templeteFloorNum;
     private Integer templeteId;
-    private Integer templeteRoom_num;
+    private Integer templeteRoomNum;
 }

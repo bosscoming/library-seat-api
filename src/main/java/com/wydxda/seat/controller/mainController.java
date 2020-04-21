@@ -45,8 +45,8 @@ public class mainController {
             }
             if (processedList.size() > 0) {
                 SeatTemplete seatTemplete = new SeatTemplete();
-                seatTemplete.setFloor_num(seats.getTempleteName());
-                seatTemplete.setRoom_num(seats.getTempleteRoom_num());
+                seatTemplete.setFloorNum(seats.getTempleteFloorNum());
+                seatTemplete.setRoomNum(seats.getTempleteRoomNum());
                 seatTemplete.setId(seats.getTempleteId());
                 seatTemplete.setFlag(0);
                 seatTemplete.setStatus(false);
@@ -81,7 +81,7 @@ public class mainController {
         } catch (Exception e) {
             ResponseBean responseBean = new ResponseBean();
             responseBean.setErrCode(1);
-            responseBean.setErrMsg("失败");
+            e.printStackTrace();
             return responseBean;
         }
     }

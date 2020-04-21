@@ -21,7 +21,7 @@ public class SeatObj {
 
     private String col;
 
-    private Integer price;
+    private Integer roomNum;
 
     private String type;
 

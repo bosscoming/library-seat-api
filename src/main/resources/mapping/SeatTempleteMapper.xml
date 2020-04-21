@@ -3,28 +3,28 @@
 <mapper namespace="com.wydxda.seat.mapper.SeatTempleteMapper">
   <resultMap id="BaseResultMap" type="com.wydxda.seat.model.SeatTemplete">
     <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="floor_num" jdbcType="INTEGER" property="floor_num" />
-    <result column="room_num" jdbcType="INTEGER" property="room_num" />
+    <result column="floor_num" jdbcType="INTEGER" property="floorNum" />
+    <result column="room_num" jdbcType="INTEGER" property="roomNum" />
     <result column="flag" jdbcType="INTEGER" property="flag" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <insert id="insertTemplete"  useGeneratedKeys="true" keyProperty="seatTemplete.id" parameterType="com.wydxda.seat.model.SeatTemplete">
-    insert into ss_seat_templete (id,floor_num,room_num,create_time,update_time,flag)
-    values(#{seatTemplete.id},#{seatTemplete.floor_num},#{seatTemplete.room_num},now(),now(),#{seatTemplete.flag})
+    insert into ls_rooms_templete (id,floor_num,room_num,create_time,update_time,flag)
+    values(#{seatTemplete.id},#{seatTemplete.floorNum},#{seatTemplete.roomNum},now(),now(),#{seatTemplete.flag})
     ON DUPLICATE KEY UPDATE floor_num=VALUES(floor_num),room_num=VALUES(room_num),create_time=now(),update_time=now();
   </insert>
   <select id="findByTempleteList" resultMap="BaseResultMap">
-    select * from ss_seat_templete WHERE flag = 0
+    select * from ls_rooms_templete WHERE flag = 0 ORDER BY floor_num,room_num
   </select>
   <update id="deleteTemplete">
-    update ss_seat_templete set flag = 1 WHERE id in
+    update ls_rooms_templete set flag = 1 WHERE id in
     <foreach collection="idList" index="index" item="item" open="("
              separator="," close=")">
       #{item}
     </foreach>
   </update>
   <select id="findTempleteById" resultMap="BaseResultMap">
-    select * from ss_seat_templete WHERE id =#{id}
+    select * from ls_rooms_templete WHERE id =#{id}
   </select>
 </mapper>
