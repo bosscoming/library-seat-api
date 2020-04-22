@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wydxda.seat.mapper.SeatTempleteMapper">
-  <resultMap id="BaseResultMap" type="com.wydxda.seat.model.SeatTemplete">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="floor_num" jdbcType="INTEGER" property="floorNum" />
-    <result column="room_num" jdbcType="INTEGER" property="roomNum" />
-    <result column="flag" jdbcType="INTEGER" property="flag" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <insert id="insertTemplete"  useGeneratedKeys="true" keyProperty="seatTemplete.id" parameterType="com.wydxda.seat.model.SeatTemplete">
-    insert into ls_rooms_templete (id,floor_num,room_num,create_time,update_time,flag)
-    values(#{seatTemplete.id},#{seatTemplete.floorNum},#{seatTemplete.roomNum},now(),now(),#{seatTemplete.flag})
-    ON DUPLICATE KEY UPDATE floor_num=VALUES(floor_num),room_num=VALUES(room_num),create_time=now(),update_time=now();
-  </insert>
-  <select id="findByTempleteList" resultMap="BaseResultMap">
-    select * from ls_rooms_templete WHERE flag = 0 ORDER BY floor_num,room_num
-  </select>
-  <update id="deleteTemplete">
-    update ls_rooms_templete set flag = 1 WHERE id in
-    <foreach collection="idList" index="index" item="item" open="("
-             separator="," close=")">
-      #{item}
-    </foreach>
-  </update>
-  <select id="findTempleteById" resultMap="BaseResultMap">
-    select * from ls_rooms_templete WHERE id =#{id}
-  </select>
+    <resultMap id="BaseResultMap" type="com.wydxda.seat.model.SeatTemplete">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="floor_num" jdbcType="INTEGER" property="floorNum"/>
+        <result column="room_num" jdbcType="INTEGER" property="roomNum"/>
+        <result column="flag" jdbcType="INTEGER" property="flag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insertTemplete" useGeneratedKeys="true" keyProperty="seatTemplete.id"
+            parameterType="com.wydxda.seat.model.SeatTemplete">
+        insert into ls_rooms_templete (id,floor_num,room_num,create_time,update_time,flag)
+        values(#{seatTemplete.id},#{seatTemplete.floorNum},#{seatTemplete.roomNum},now(),now(),#{seatTemplete.flag})
+        ON DUPLICATE KEY UPDATE floor_num=VALUES(floor_num),room_num=VALUES(room_num),create_time=now(),update_time=now();
+    </insert>
+
+    <select id="findByTempleteList" resultMap="BaseResultMap">
+        select * from ls_rooms_templete WHERE flag = 0 ORDER BY floor_num,room_num
+    </select>
+
+    <update id="deleteTemplete">
+        update ls_rooms_templete set flag = 1 WHERE id in
+        <foreach collection="idList" index="index" item="item" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="findTempleteById" resultMap="BaseResultMap">
+        select * from ls_rooms_templete WHERE id =#{id}
+    </select>
+
+    <select id="findByTempleteIdList" resultMap="BaseResultMap">
+        select id,floor_num,room_num from ls_rooms_templete
+        where s_id=#{sid}
+        group by floor_num,room_num
+   </select>
+
 </mapper>

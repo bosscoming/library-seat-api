@@ -13,4 +13,6 @@ public interface SeatTempleteMapper {
     void deleteTemplete(@Param("idList")List<Integer> idList);
 
     SeatTemplete findTempleteById(@Param("id")Integer id);
+
+    List<SeatTemplete> findByTempleteIdList(@Param("sid")Integer sid);
 }

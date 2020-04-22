@@ -21,6 +21,8 @@ public class seatController {
     private ReaderService readerService;
     @Autowired
     private SeatTypeService seatTypeService;
+    @Autowired
+    private SeatTempleteService seatTempleteService;
 
     @RequestMapping(value = "/seatList", method = RequestMethod.POST)
     @ResponseBody
@@ -52,6 +54,32 @@ public class seatController {
             ResponseBean responseBean = new ResponseBean();
             responseBean.setErrCode(1);
             responseBean.setErrMsg("fail");
+            return responseBean;
+        }
+    }
+
+    @RequestMapping(value = "/roomNumList", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findTempleteIdList(@RequestParam(value = "openid") String openid) {
+        try {
+
+            Reader reader = readerService.findByOpenid(openid);
+            if(reader == null) {
+                ResponseBean responseBean = new ResponseBean();
+                responseBean.setErrCode(-1);
+                responseBean.setErrMsg("请先绑定学校账号后重试");
+                return responseBean;
+            }
+            List<SeatTemplete> list = seatTempleteService.findByTempleteIdList(reader.getSchool().getId());
+            ResponseBean responseBean = new ResponseBean();
+            responseBean.setErrCode(0);
+            responseBean.setErrMsg("success");
+            responseBean.setData(list);
+            return responseBean;
+        } catch (Exception e) {
+            ResponseBean responseBean = new ResponseBean();
+            responseBean.setErrCode(1);
+            e.printStackTrace();
             return responseBean;
         }
     }

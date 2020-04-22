@@ -23,4 +23,8 @@ public class SeatTempleteService {
     public void deleteTemplete(List<Integer> idList) {
          seatTempleteMapper.deleteTemplete(idList);
     }
+
+    public List<SeatTemplete> findByTempleteIdList(Integer sid) {
+        return seatTempleteMapper.findByTempleteIdList(sid);
+    }
 }
