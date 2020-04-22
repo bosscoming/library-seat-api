@@ -34,6 +34,7 @@ public class SeatService {
         seatObjMapper.insertSeat(seatObjList,seatTemplete);
     }
 
+    @Transactional
     public Seats findSeatListByTempleteId(Integer id) {
         Seats seats = new Seats();
         List<SeatObj> existList = seatObjMapper.findByTempleteId(id);

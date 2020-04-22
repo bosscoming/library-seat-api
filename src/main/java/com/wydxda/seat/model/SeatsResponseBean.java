@@ -16,4 +16,5 @@ public class SeatsResponseBean {
     private String campuses;
     private List<SeatObj> seatList;
 
+    private List<SeatType> seatTypeList;
 }

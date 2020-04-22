@@ -4,6 +4,7 @@ import com.wydxda.seat.model.*;
 import com.wydxda.seat.services.ReaderService;
 import com.wydxda.seat.services.SeatService;
 import com.wydxda.seat.services.SeatTempleteService;
+import com.wydxda.seat.services.SeatTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,10 @@ public class seatController {
     private SeatService seatService;
     @Autowired
     private ReaderService readerService;
+    @Autowired
+    private SeatTypeService seatTypeService;
 
-    @RequestMapping(value = "/findSeatListById", method = RequestMethod.POST)
+    @RequestMapping(value = "/seatList", method = RequestMethod.POST)
     @ResponseBody
     public Object findSeatListByTempleteId(
             @RequestParam(value = "id") Integer templeteId,
@@ -42,6 +45,8 @@ public class seatController {
             seatsResponseBean.setSchoolUrl(reader.getSchool().getUrl());
             seatsResponseBean.setRoomNum(seats.getTempleteRoomNum());
             seatsResponseBean.setSeatList(seats.getSeats());
+            List<SeatType> seatTypeList = seatTypeService.findAll();
+            seatsResponseBean.setSeatTypeList(seatTypeList);
             return seatsResponseBean;
         } catch (Exception e) {
             ResponseBean responseBean = new ResponseBean();
