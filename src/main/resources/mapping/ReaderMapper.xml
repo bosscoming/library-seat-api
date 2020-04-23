@@ -21,6 +21,9 @@
             <result column="school_name" jdbcType="VARCHAR" property="schoolName"/>
             <result column="campuse_name" jdbcType="VARCHAR" property="campuses"/>
             <result column="badge" jdbcType="VARCHAR" property="url"/>
+
+            <result column="longitude" jdbcType="DOUBLE" property="longitude"/>
+            <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
         </association>
 
     </resultMap>

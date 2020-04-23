@@ -1,45 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wydxda.seat.mapper.SeatObjMapper">
-  <resultMap id="BaseResultMap" type="com.wydxda.seat.model.SeatObj">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="x" jdbcType="INTEGER" property="x" />
-    <result column="y" jdbcType="INTEGER" property="y" />
-    <result column="row" jdbcType="VARCHAR" property="row" />
-    <result column="col" jdbcType="VARCHAR" property="col" />
-    <result column="room_num" jdbcType="INTEGER" property="roomNum" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="flag" jdbcType="INTEGER" property="flag" />
-    <result column="templete_id" jdbcType="VARCHAR" property="templeteId" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <insert id="insertSeat">
-    insert into ls_seats (x, y,row,col,room_num,type,flag,templete_id,create_time,update_time)
-    values
-    <foreach collection="seatList" index="index" item="item" separator=",">
-      (
-       #{item.x},
-       #{item.y},
-       #{item.row},
-       #{item.col},
-       #{seatTemplete.roomNum},
-       #{item.type},
-       #{item.flag},
-       #{seatTemplete.id},
-       now(),
-       now()
-       )
-    </foreach>
-  </insert>
-  <delete id="deleteByIdList" >
-    delete from ls_seats WHERE id in
-    <foreach collection="idList" index="index" item="item" open="("
-             separator="," close=")">
-      #{item}
-    </foreach>
-  </delete>
-  <select id="findByTempleteId" resultMap="BaseResultMap">
-    select * from ls_seats WHERE templete_id = #{templeteId}
-  </select>
+    <resultMap id="BaseResultMap" type="com.wydxda.seat.model.SeatObj">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="x" jdbcType="INTEGER" property="x"/>
+        <result column="y" jdbcType="INTEGER" property="y"/>
+        <result column="row" jdbcType="VARCHAR" property="row"/>
+        <result column="col" jdbcType="VARCHAR" property="col"/>
+        <result column="room_num" jdbcType="INTEGER" property="roomNum"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="flag" jdbcType="INTEGER" property="flag"/>
+        <result column="templete_id" jdbcType="VARCHAR" property="templeteId"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <insert id="insertSeat">
+        insert into ls_seats (x, y,row,col,room_num,type,flag,templete_id,create_time,update_time)
+        values
+        <foreach collection="seatList" index="index" item="item" separator=",">
+            (
+            #{item.x},
+            #{item.y},
+            #{item.row},
+            #{item.col},
+            #{seatTemplete.roomNum},
+            #{item.type},
+            #{item.flag},
+            #{seatTemplete.id},
+            now(),
+            now()
+            )
+        </foreach>
+    </insert>
+    <delete id="deleteByIdList">
+        delete from ls_seats WHERE id in
+        <foreach collection="idList" index="index" item="item" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 查询座位列表前 更新每个座位的 使用状态 超时后 -> 空座 -->
+    <update id="updateSeatsType">
+        update ls_seats
+        set type=0,release_time=NULL,reader_openid=NULL
+        where type!=0
+        and TIMESTAMPDIFF(SECOND,release_time,now())>0
+        and templete_id = #{templeteId}
+    </update>
+
+
+    <!-- 使用座位 更新座位状态 -->
+    <update id="updateSeat">
+        update ls_seats
+        set type=#{type},release_time=(now()+interval #{duration} minute),reader_openid=#{openid}
+        where id=#{id}
+    </update>
+
+    <select id="findByTempleteId" resultMap="BaseResultMap">
+        select * from ls_seats WHERE templete_id = #{templeteId}
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select * from ls_seats WHERE id = #{id}
+    </select>
+
+
 </mapper>

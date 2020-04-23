@@ -13,4 +13,15 @@ public interface SeatObjMapper {
     void deleteByIdList(@Param("idList")List<Integer> idList);
 
     List<SeatObj> findByTempleteId(@Param("templeteId")Integer templeteId);
+
+    SeatObj findById(@Param("id")Integer id);
+
+    void updateSeatsType(@Param("templeteId")Integer templeteId);
+
+    void updateSeat(
+            @Param("openid") String openid,
+            @Param("id") Integer id,
+            @Param("type") Integer type,
+            @Param("duration") Integer duration
+    );
 }

@@ -11,4 +11,6 @@ public class School {
     private String schoolName;
     private String campuses;
     private String group;
+    private Double longitude;
+    private Double latitude;
 }

@@ -1,4 +1,5 @@
 package com.wydxda.seat.services;
+
 import com.wydxda.seat.mapper.SeatObjMapper;
 import com.wydxda.seat.mapper.SeatTempleteMapper;
 import com.wydxda.seat.model.SeatObj;
@@ -21,22 +22,24 @@ public class SeatService {
     private SeatObjMapper seatObjMapper;
     @Autowired
     private SeatTempleteMapper seatTempleteMapper;
+
     @Transactional
-    public void insertSeatAndReplace(List<SeatObj> seatObjList,SeatTemplete seatTemplete) {
-        if (seatTemplete.getId()!=null) {
+    public void insertSeatAndReplace(List<SeatObj> seatObjList, SeatTemplete seatTemplete) {
+        if (seatTemplete.getId() != null) {
             List<SeatObj> existList = seatObjMapper.findByTempleteId(seatTemplete.getId());
-            List<Integer> idList =existList.stream().map(SeatObj::getId).collect(Collectors.toList());
-            if(idList.size()>0) {
+            List<Integer> idList = existList.stream().map(SeatObj::getId).collect(Collectors.toList());
+            if (idList.size() > 0) {
                 seatObjMapper.deleteByIdList(idList);
             }
         }
         seatTempleteMapper.insertTemplete(seatTemplete);
-        seatObjMapper.insertSeat(seatObjList,seatTemplete);
+        seatObjMapper.insertSeat(seatObjList, seatTemplete);
     }
 
     @Transactional
     public Seats findSeatListByTempleteId(Integer id) {
         Seats seats = new Seats();
+        seatObjMapper.updateSeatsType(id);//更新座位状态类型
         List<SeatObj> existList = seatObjMapper.findByTempleteId(id);
         SeatTemplete seatTemplete = seatTempleteMapper.findTempleteById(id);
         seats.setSeats(existList);
@@ -45,4 +48,26 @@ public class SeatService {
         seats.setTempleteRoomNum(seatTemplete.getRoomNum());
         return seats;
     }
+
+//    @Transactional
+//    public void updateSeatsType(Integer templeteId) {
+//        seatObjMapper.updateSeatsType(templeteId);
+//    }
+
+
+    @Transactional
+    public SeatObj findById(Integer id) {
+        return seatObjMapper.findById(id);
+    }
+
+    @Transactional
+    public void updateSeat(
+            String openid,
+            Integer id,
+            Integer type,
+            Integer duration
+    ) {
+        seatObjMapper.updateSeat(openid,id,type,duration);
+    }
+
 }
