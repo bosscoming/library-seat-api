@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 16/04/2020 21:41:21
+ Date: 24/04/2020 00:21:14
 */
 
 SET NAMES utf8mb4;
@@ -41,10 +41,5 @@ CREATE TABLE `ls_readers`  (
   INDEX `openid`(`openid`) USING BTREE,
   CONSTRAINT `ls_readers_school_id` FOREIGN KEY (`s_id`) REFERENCES `ls_schools` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生读者信息表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of ls_readers
--- ----------------------------
-INSERT INTO `ls_readers` VALUES (1520163312, NULL, '123456', 'https://wx.qlogo.cn/mmhead/Q3auHgzwzM7hWo0U0qsSXA2SbYYkhSOL4p5z6iaVKWYvZWWA13q7yqA/0', NULL, NULL, '保密', 1, NULL, NULL, NULL, NULL, 0, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

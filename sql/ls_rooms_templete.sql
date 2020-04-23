@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 22/04/2020 00:54:04
+ Date: 24/04/2020 00:21:05
 */
 
 SET NAMES utf8mb4;
@@ -31,6 +31,6 @@ CREATE TABLE `ls_rooms_templete`  (
   `status` tinyint(1) NULL DEFAULT 0 COMMENT '状态 1 为 维修 0 为 正常',
   `flag` tinyint(1) NULL DEFAULT NULL COMMENT '状态 1 为 删除 0 为 有效',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '座位模版表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '阅览室模版表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
