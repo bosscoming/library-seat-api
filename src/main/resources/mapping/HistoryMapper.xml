@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wydxda.seat.mapper.HistoryMapper">
+    <resultMap id="BaseResultMap" type="com.wydxda.seat.model.History">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="seat_id" jdbcType="INTEGER" property="seatId"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="endTime" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+    </resultMap>
+
+    <insert id="insertHistory">
+        insert into ls_history (openid,seat_id,type,start_time,end_time)
+        value
+        (
+            #{openid},
+            #{seatId},
+            #{type},
+            now(),
+            (now()-interval #{minute} minute)
+        )
+    </insert>
+</mapper>

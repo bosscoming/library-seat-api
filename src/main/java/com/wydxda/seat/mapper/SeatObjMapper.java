@@ -22,7 +22,7 @@ public interface SeatObjMapper {
     void updateSeat(
             @Param("openid") String openid,
             @Param("id") Integer id,
-            @Param("type") Integer type,
+            @Param("type") String type,
             @Param("duration") Integer duration
     );
     SeatNow getNowSeatInfo(@Param("id") Integer id);

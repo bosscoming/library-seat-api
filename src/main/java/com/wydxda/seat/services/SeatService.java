@@ -65,7 +65,7 @@ public class SeatService {
     public void updateSeat(
             String openid,
             Integer id,
-            Integer type,
+            String type,
             Integer duration
     ) {
         seatObjMapper.updateSeat(openid,id,type,duration);
