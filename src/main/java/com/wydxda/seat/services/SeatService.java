@@ -2,6 +2,7 @@ package com.wydxda.seat.services;
 
 import com.wydxda.seat.mapper.SeatObjMapper;
 import com.wydxda.seat.mapper.SeatTempleteMapper;
+import com.wydxda.seat.model.SeatNow;
 import com.wydxda.seat.model.SeatObj;
 import com.wydxda.seat.model.SeatTemplete;
 import com.wydxda.seat.model.Seats;
@@ -70,4 +71,8 @@ public class SeatService {
         seatObjMapper.updateSeat(openid,id,type,duration);
     }
 
+    @Transactional
+    public SeatNow getNowSeatInfo(Integer id){
+        return seatObjMapper.getNowSeatInfo(id);
+    }
 }

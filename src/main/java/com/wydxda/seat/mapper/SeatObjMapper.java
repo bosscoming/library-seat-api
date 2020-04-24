@@ -1,5 +1,6 @@
 package com.wydxda.seat.mapper;
 
+import com.wydxda.seat.model.SeatNow;
 import com.wydxda.seat.model.SeatObj;
 import com.wydxda.seat.model.SeatTemplete;
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,5 @@ public interface SeatObjMapper {
             @Param("type") Integer type,
             @Param("duration") Integer duration
     );
+    SeatNow getNowSeatInfo(@Param("id") Integer id);
 }

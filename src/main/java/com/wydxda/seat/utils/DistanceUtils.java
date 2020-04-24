@@ -6,7 +6,10 @@ import org.gavaghan.geodesy.GeodeticCurve;
 import org.gavaghan.geodesy.GlobalCoordinates;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+/**
+ * //    http://www.gpsspg.com/distance.htm
+ * @author li-fengjie
+ */
 public class DistanceUtils {
 
     private static final double MAX_ALLOW_METER = 300;

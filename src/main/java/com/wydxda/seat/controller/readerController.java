@@ -119,6 +119,7 @@ public class readerController {
             }
 
             // 验证 座位编码
+            System.out.println(code);
             Integer id = Integer.parseInt(code);//TODO 暂时code 为 ls_seats id
             SeatObj seat = seatService.findById(id);
             if(seat == null){

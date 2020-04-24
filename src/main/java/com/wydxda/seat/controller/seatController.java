@@ -83,4 +83,14 @@ public class seatController {
             return responseBean;
         }
     }
+
+    @RequestMapping(value = "/getNowSeatInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getNowSeatInfo(
+            @RequestParam(value = "seatId") Integer id,
+            @RequestParam(value = "openid") String openid
+            ){
+        //TODO 管理员用户身份 openid 验证
+        return seatService.getNowSeatInfo(id);
+    }
 }

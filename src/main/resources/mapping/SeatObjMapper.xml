@@ -14,6 +14,7 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+
     <insert id="insertSeat">
         insert into ls_seats (x, y,row,col,room_num,type,flag,templete_id,create_time,update_time)
         values
@@ -32,6 +33,7 @@
             )
         </foreach>
     </insert>
+
     <delete id="deleteByIdList">
         delete from ls_seats WHERE id in
         <foreach collection="idList" index="index" item="item" open="("
@@ -49,7 +51,6 @@
         and templete_id = #{templeteId}
     </update>
 
-
     <!-- 使用座位 更新座位状态 -->
     <update id="updateSeat">
         update ls_seats
@@ -65,5 +66,28 @@
         select * from ls_seats WHERE id = #{id}
     </select>
 
+
+    <resultMap id="NowSeatResultMap" type="com.wydxda.seat.model.SeatNow">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="department" jdbcType="VARCHAR" property="department"/>
+        <result column="professional" jdbcType="VARCHAR" property="professional"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="uid" jdbcType="INTEGER" property="uId"/>
+        <result column="grade" jdbcType="INTEGER" property="grade"/>
+        <result column="remainder_time" property="remainderTime" jdbcType="TIME"/>
+    </resultMap>
+
+    <select id="getNowSeatInfo" resultMap="NowSeatResultMap">
+        select t1.id,t1.type,t2.id uid,t2.url,t2.name,t2.nickname,t2.sex,t2.department,t2.professional,t2.class_name,t2.grade,SEC_TO_TIME(t1.release_time-now()) remainder_time
+        from ls_seats t1,ls_readers t2
+        where t1.reader_openid=t2.openid
+        and t1.type!=0
+        and t1.id=#{id}
+    </select>
 
 </mapper>

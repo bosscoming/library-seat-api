@@ -11,9 +11,9 @@
         <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
     </resultMap>
     <select id="getSchoolList" resultMap="BaseResultMap">
-    SELECT t1.id, t1.school_name,t1.campuse_name,t1.badge,t1.latitude,t1.longitude,t2.f_PY
-    FROM ls_schools t1, t_coslers t2
-    WHERE  CONV(HEX(LEFT(CONVERT(t1.school_name USING gbk ), 1)), 16, 10) BETWEEN t2.cBegin AND t2.cEnd
-    ORDER BY convert(t1.school_name using gbk) ASC
-  </select>
+        SELECT t1.id, t1.school_name,t1.campuse_name,t1.badge,t1.latitude,t1.longitude,t2.f_PY
+        FROM ls_schools t1, t_coslers t2
+        WHERE  CONV(HEX(LEFT(CONVERT(t1.school_name USING gbk ), 1)), 16, 10) BETWEEN t2.cBegin AND t2.cEnd
+        ORDER BY convert(t1.school_name using gbk) ASC
+    </select>
 </mapper>
