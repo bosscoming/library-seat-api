@@ -50,10 +50,15 @@ public class SeatService {
         return seats;
     }
 
-//    @Transactional
-//    public void updateSeatsType(Integer templeteId) {
-//        seatObjMapper.updateSeatsType(templeteId);
-//    }
+    @Transactional
+    public void updateSeatsType(Integer templeteId) {
+        seatObjMapper.updateSeatsType(templeteId);
+    }
+
+    @Transactional
+    public void updateNowSeatType(Integer id) {
+        seatObjMapper.updateNowSeatType(id);
+    }
 
 
     @Transactional
@@ -68,11 +73,16 @@ public class SeatService {
             String type,
             Integer duration
     ) {
-        seatObjMapper.updateSeat(openid,id,type,duration);
+        seatObjMapper.updateSeat(openid, id, type, duration);
     }
 
     @Transactional
-    public SeatNow getNowSeatInfo(Integer id){
+    public SeatNow getNowSeatInfo(Integer id) {
         return seatObjMapper.getNowSeatInfo(id);
+    }
+
+    @Transactional
+    public SeatObj checkSeatNowCanUse(Integer id){
+        return seatObjMapper.checkSeatNowCanUse(id);
     }
 }

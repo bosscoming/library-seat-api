@@ -51,7 +51,16 @@
         and templete_id = #{templeteId}
     </update>
 
-    <!-- 使用座位 更新座位状态 -->
+    <update id="updateNowSeatType">
+        update ls_seats
+        set type=0,release_time=NULL,reader_openid=NULL
+        where type!=0
+        and TIMESTAMPDIFF(SECOND,release_time,now())>0
+        and id = #{id}
+    </update>
+
+
+    <!-- 使用座位 更新座位状态 先检查是有人-->
     <update id="updateSeat">
         update ls_seats
         set type=#{type},release_time=(now()+interval #{duration} minute),reader_openid=#{openid}
@@ -64,6 +73,12 @@
 
     <select id="findById" resultMap="BaseResultMap">
         select * from ls_seats WHERE id = #{id}
+    </select>
+
+    <select id="checkSeatNowCanUse" resultMap="BaseResultMap">
+        select * from ls_seats
+        where id=#{id}
+        and reader_openid is null
     </select>
 
 
@@ -83,7 +98,8 @@
     </resultMap>
 
     <select id="getNowSeatInfo" resultMap="NowSeatResultMap">
-        select t1.id,t1.type,t2.id uid,t2.url,t2.name,t2.nickname,t2.sex,t2.department,t2.professional,t2.class_name,t2.grade,SEC_TO_TIME(t1.release_time-now()) remainder_time
+        select t1.id,t1.type,t2.id uid,t2.url,t2.name,t2.nickname,t2.sex,t2.department,t2.professional,t2.class_name,t2.grade,
+        SEC_TO_TIME(TIME_TO_SEC(t1.release_time) - TIME_TO_SEC(now())) remainder_time
         from ls_seats t1,ls_readers t2
         where t1.reader_openid=t2.openid
         and t1.type!=0

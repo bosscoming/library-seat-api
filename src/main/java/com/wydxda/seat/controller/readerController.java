@@ -142,14 +142,23 @@ public class readerController {
                 responseBean.setErrMsg("请在图书馆位置范围重试");
                 return responseBean;
             }
-            seatService.updateSeat(openid,id,type,duration);
+            seatService.updateNowSeatType(id);
+            // 先判断座位使用情况 如果有人使用中，无法抢占
+            SeatObj seatIsUse = seatService.checkSeatNowCanUse(id);
+            if(seatIsUse == null){
+                responseBean.setErrCode(-1);
+                responseBean.setErrMsg("当前座位有人使用中");
+                return responseBean;
+            }else {
+                seatService.updateSeat(openid,id,type,duration);
+            }
         }catch (Exception e){
             responseBean.setErrCode(-1);
             responseBean.setErrMsg("fail");
             e.printStackTrace();
             return responseBean;
         }
-        // TODO 添加读者用户学习记录
+
         historyService.insertHistory(openid,id,type,duration);
         responseBean.setErrCode(0);
         responseBean.setErrMsg("success");
