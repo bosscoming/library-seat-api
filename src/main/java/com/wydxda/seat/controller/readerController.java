@@ -1,5 +1,6 @@
 package com.wydxda.seat.controller;
 
+import com.wydxda.seat.model.History;
 import com.wydxda.seat.model.Reader;
 import com.wydxda.seat.model.ResponseBean;
 import com.wydxda.seat.model.SeatObj;
@@ -13,6 +14,8 @@ import org.gavaghan.geodesy.GeodeticCurve;
 import org.gavaghan.geodesy.GlobalCoordinates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class readerController {
@@ -162,6 +165,25 @@ public class readerController {
         historyService.insertHistory(openid,id,type,duration);
         responseBean.setErrCode(0);
         responseBean.setErrMsg("success");
+        return responseBean;
+    }
+
+    @RequestMapping(value = "/historyList",method = RequestMethod.GET)
+    @ResponseBody
+    public Object findByOpenidList(
+            @RequestParam(value = "openid")String openid
+    ){
+        ResponseBean responseBean = new ResponseBean();
+        try {
+            List<History> historyList = historyService.findByOpenidList(openid);
+            responseBean.setErrCode(0);
+            responseBean.setErrMsg("success");
+            responseBean.setData(historyList);
+        }catch (Exception e){
+            responseBean.setErrCode(-1);
+            responseBean.setErrMsg("fail");
+            e.printStackTrace();
+        }
         return responseBean;
     }
 }

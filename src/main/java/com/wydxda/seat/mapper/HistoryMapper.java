@@ -1,7 +1,10 @@
 package com.wydxda.seat.mapper;
 
 
+import com.wydxda.seat.model.History;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 
 public interface HistoryMapper {
@@ -12,4 +15,5 @@ public interface HistoryMapper {
             @Param("minute") Integer minute
     );
 
+    List<History> findByOpenidList(@Param("openid") String openid);
 }

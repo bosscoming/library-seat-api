@@ -3,11 +3,11 @@
 <mapper namespace="com.wydxda.seat.mapper.HistoryMapper">
     <resultMap id="BaseResultMap" type="com.wydxda.seat.model.History">
         <result column="id" jdbcType="INTEGER" property="id"/>
-        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <!--<result column="openid" jdbcType="VARCHAR" property="openid"/>-->
         <result column="seat_id" jdbcType="INTEGER" property="seatId"/>
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
-        <result column="endTime" property="endTime" jdbcType="TIMESTAMP"/>
-        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="name" jdbcType="VARCHAR" property="typeName"/>
     </resultMap>
 
     <insert id="insertHistory">
@@ -21,4 +21,10 @@
             (now()-interval #{minute} minute)
         )
     </insert>
+
+    <select id="findByOpenidList" resultMap="BaseResultMap">
+        SELECT t1.*,t2.name from ls_history t1,ls_seat_type t2
+        where t1.openid=#{openid}
+        and t1.type=t2.type
+    </select>
 </mapper>
