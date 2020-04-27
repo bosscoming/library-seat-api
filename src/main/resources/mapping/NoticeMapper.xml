@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wydxda.seat.mapper.NoticeMapper">
+    <resultMap id="BaseResultMap" type="com.wydxda.seat.model.Notice">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="imgUrl" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <!--<result column="school_id" jdbcType="INTEGER" property="schoolId"/>-->
+        <result column="num" jdbcType="INTEGER" property="num"/>
+
+
+        <result column="librarian_id" jdbcType="INTEGER" property="librarianId"/>
+        <!-- 1对1配置 -->
+        <association column="librarian_id" javaType="librarian" property="librarian">
+            <result column="librarian_id" jdbcType="INTEGER" property="id"/>
+            <!--<result column="s_id" jdbcType="INTEGER" property="sId"/>-->
+            <result column="openid" jdbcType="VARCHAR" property="openid"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+            <result column="url" jdbcType="VARCHAR" property="url"/>
+        </association>
+
+    </resultMap>
+
+    <!--<insert id="insertHistory">-->
+        <!--insert into ls_history (openid,seat_id,type,end_time,start_time)-->
+        <!--value-->
+        <!--(-->
+            <!--#{openid},-->
+            <!--#{seatId},-->
+            <!--#{type},-->
+            <!--now(),-->
+            <!--(now()-interval #{minute} minute)-->
+        <!--)-->
+    <!--</insert>-->
+
+    <select id="findByOpenIdList" resultMap="BaseResultMap">
+        select t1.*, t2.id,t2.openid,t2.name,t2.nickname,t2.url from ls_readers t0,ls_notices t1,ls_librarians t2
+        where t0.openid=#{openid}
+        and t1.school_id=t0.s_id
+        and t1.librarian_id=t2.id
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select * from ls_notices where id = #{id}
+    </select>
+
+</mapper>
