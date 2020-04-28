@@ -8,11 +8,11 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.zh</groupId>
-    <artifactId>seat</artifactId>
+    <groupId>com.wydxda</groupId>
+    <artifactId>library-seat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>seat</name>
-    <description>seat-select-controller</description>
+    <description>library-seat-controller</description>
     <packaging>war</packaging>
 
     <properties>
@@ -123,7 +123,7 @@
     </dependencies>
 
     <build>
-        <finalName>seats-controller</finalName>
+        <finalName>library-seat-controller</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
