@@ -28,6 +28,7 @@ public class readerController {
 
     @Autowired
     private HistoryService historyService;
+    private SeatObj seatIsUse;
 
     @RequestMapping(value = "/readerLogin", method = RequestMethod.POST)
     @ResponseBody
@@ -136,18 +137,21 @@ public class readerController {
                 return responseBean;
             }
 
+            // TODO 是否验证位置
             //验证 位置范围
-            Double schLatitude = reader.getSchool().getLatitude();
-            Double schLongitude = reader.getSchool().getLongitude();
-            boolean isOk = DistanceUtils.allowedDistance(schLatitude,schLongitude,latitude,longitude);
-            if(!isOk){
-                responseBean.setErrCode(-1);
-                responseBean.setErrMsg("请在图书馆位置范围重试");
-                return responseBean;
-            }
+//            Double schLatitude = reader.getSchool().getLatitude();
+//            Double schLongitude = reader.getSchool().getLongitude();
+//            boolean isOk = DistanceUtils.allowedDistance(schLatitude,schLongitude,latitude,longitude);
+//            if(!isOk){
+//                responseBean.setErrCode(-1);
+//                responseBean.setErrMsg("请在图书馆位置范围重试");
+//                return responseBean;
+//            }
+
+
             seatService.updateNowSeatType(id);
             // 先判断座位使用情况 如果有人使用中，无法抢占
-            SeatObj seatIsUse = seatService.checkSeatNowCanUse(id);
+            seatIsUse = seatService.checkSeatNowCanUse(id);
             if(seatIsUse == null){
                 responseBean.setErrCode(-1);
                 responseBean.setErrMsg("当前座位有人使用中");
@@ -164,6 +168,7 @@ public class readerController {
 
         historyService.insertHistory(openid,id,type,duration);
         responseBean.setErrCode(0);
+        responseBean.setData(seatIsUse.getTempleteId());
         responseBean.setErrMsg("success");
         return responseBean;
     }
