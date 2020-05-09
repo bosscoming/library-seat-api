@@ -26,5 +26,6 @@
         SELECT t1.*,t2.name from ls_history t1,ls_seat_type t2
         where t1.openid=#{openid}
         and t1.type=t2.type
+        ORDER BY start_time DESC
     </select>
 </mapper>
