@@ -93,4 +93,37 @@ public class seatController {
         //TODO 管理员用户身份 openid 验证
         return seatService.getNowSeatInfo(id);
     }
+
+    @RequestMapping(value = "/reportSeat",method = RequestMethod.GET)
+    public Object reportSeat(
+            @RequestParam(value = "openid") String openid,
+            @RequestParam(value = "code") String code
+    ){
+
+        ResponseBean responseBean = new ResponseBean();
+        Reader reader = readerService.findByOpenid(openid);
+        if(reader == null) {
+            responseBean.setErrCode(-1);
+            responseBean.setErrMsg("请先绑定学校账号后重试");
+            return responseBean;
+        }
+        Integer id = Integer.parseInt(code);
+        // 先判断座位使用情况 如果有人使用中，无法抢占
+        SeatObj seatIsUse = seatService.checkSeatNowCanUse(id);
+        if(seatIsUse == null){
+            responseBean.setErrCode(-1);
+            responseBean.setErrMsg("当前座位有人正在使用中");
+            return responseBean;
+        }
+        String type = "5";
+        try{
+            seatService.updateSeatType(id,type);
+            responseBean.setData(0);
+            responseBean.setErrMsg("success");
+        }catch (Exception e){
+            responseBean.setErrMsg("fail");
+            responseBean.setErrCode(-1);
+        }
+        return responseBean;
+    }
 }

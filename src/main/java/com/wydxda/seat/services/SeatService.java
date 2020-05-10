@@ -77,6 +77,14 @@ public class SeatService {
     }
 
     @Transactional
+    public void updateSeatType(
+            Integer id,
+            String type
+    ) {
+        seatObjMapper.updateSeatType(id, type);
+    }
+
+    @Transactional
     public SeatNow getNowSeatInfo(Integer id) {
         return seatObjMapper.getNowSeatInfo(id);
     }

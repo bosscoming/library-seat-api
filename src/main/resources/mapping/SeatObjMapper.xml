@@ -67,6 +67,14 @@
         where id=#{id}
     </update>
 
+    <!-- 修改座位状态类型 -->
+    <update id="updateSeatType">
+        update ls_seats
+        set type=#{type}
+        where id=#{id}
+    </update>
+
+
     <select id="findByTempleteId" resultMap="BaseResultMap">
         select * from ls_seats WHERE templete_id = #{templeteId}
     </select>
