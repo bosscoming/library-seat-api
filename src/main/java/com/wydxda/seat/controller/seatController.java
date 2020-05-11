@@ -50,11 +50,13 @@ public class seatController {
                 campuses = reader.getSchool().getCampuses();
                 schoolName = reader.getSchool().getSchoolName()+"图书馆";
                 schoolUrl = reader.getSchool().getUrl();
+                seatsResponseBean.setUType("reader");
             }
             else {
                 campuses = librarian.getSchool().getCampuses();
                 schoolName = librarian.getSchool().getSchoolName();
                 schoolUrl = librarian.getSchool().getUrl();
+                seatsResponseBean.setUType("librarian");
             }
 
             seatsResponseBean.setCampuses(campuses);
