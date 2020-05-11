@@ -10,9 +10,11 @@ public class Librarian {
     private String openid;
     private Integer sId;
 
+    private Integer s_id;
     private School school;
 
     private String name;
     private String nickname;
     private String url;
+    private String sex;
 }

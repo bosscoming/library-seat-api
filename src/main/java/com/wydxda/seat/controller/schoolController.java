@@ -1,9 +1,7 @@
 package com.wydxda.seat.controller;
 
-import com.wydxda.seat.model.Notice;
-import com.wydxda.seat.model.Reader;
-import com.wydxda.seat.model.ResponseBean;
-import com.wydxda.seat.model.School;
+import com.wydxda.seat.model.*;
+import com.wydxda.seat.services.LibrarianService;
 import com.wydxda.seat.services.NoticeService;
 import com.wydxda.seat.services.ReaderService;
 import com.wydxda.seat.services.SchoolService;
@@ -23,6 +21,9 @@ public class schoolController {
 
     @Autowired
     private ReaderService readerService;
+
+    @Autowired
+    private LibrarianService librarianService;
 
     @RequestMapping(value = "/schoolList", method = RequestMethod.GET)
     @ResponseBody
@@ -50,7 +51,13 @@ public class schoolController {
         ResponseBean responseBean = new ResponseBean();
         try {
             List<Notice> noticeList = noticeService.findByOpenIdList(openid);
-            if (noticeList != null) {
+
+            if (noticeList != null && noticeList.size() > 0) {
+                responseBean.setErrCode(0);
+                responseBean.setErrMsg("success");
+                responseBean.setData(noticeList);
+            } else {
+                noticeList = noticeService.findByLibrarianOpenIdList(openid);
                 responseBean.setErrCode(0);
                 responseBean.setErrMsg("success");
                 responseBean.setData(noticeList);
@@ -72,7 +79,9 @@ public class schoolController {
         ResponseBean responseBean = new ResponseBean();
         try {
             Reader reader = readerService.findByOpenid(openid);
-            if(reader != null){
+            Librarian librarian = librarianService.findByOpenid(openid);
+
+            if (reader != null || librarian != null) {
                 Notice notice = noticeService.findById(noticeId);
                 if (notice != null) {
                     responseBean.setErrCode(0);

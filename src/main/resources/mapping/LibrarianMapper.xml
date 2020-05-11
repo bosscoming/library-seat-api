@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wydxda.seat.mapper.LibrarianMapper">
+    <resultMap id="BaseResultMap" type="com.wydxda.seat.model.Librarian">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+
+        <result column="s_id" property="s_id"/>
+        <!-- 1对1配置 -->
+        <association column="s_id" javaType="school" property="school">
+            <result column="s_id" jdbcType="INTEGER" property="id"/>
+            <result column="school_name" jdbcType="VARCHAR" property="schoolName"/>
+            <result column="campuse_name" jdbcType="VARCHAR" property="campuses"/>
+            <result column="badge" jdbcType="VARCHAR" property="url"/>
+        </association>
+
+    </resultMap>
+
+    <select id="loginByPwd" resultMap="BaseResultMap">
+        SELECT * FROM ls_librarians,ls_schools
+        WHERE ls_librarians.s_id=ls_schools.id
+        AND ls_librarians.id=#{id}
+        AND pwd=#{pwd}
+        AND s_id=#{s_id}
+        AND flag=0
+    </select>
+
+    <select id="findByOpenid" resultMap="BaseResultMap">
+        SELECT * FROM ls_librarians,ls_schools
+        WHERE ls_librarians.s_id=ls_schools.id
+        AND ls_librarians.openid=#{openid}
+    </select>
+
+    <update id="updateLibrarianInfo">
+        UPDATE ls_librarians
+        SET openid=#{openid},url=#{url},nickname=#{nickname}
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateLibrarianOpenid">
+        UPDATE ls_librarians
+        SET openid=#{openid}
+        WHERE id=#{id}
+    </update>
+</mapper>

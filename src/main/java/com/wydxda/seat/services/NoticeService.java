@@ -18,12 +18,17 @@ public class NoticeService {
     private NoticeMapper noticeMapper;
 
     @Transactional
-    public List<Notice> findByOpenIdList(String openid){
+    public List<Notice> findByOpenIdList(String openid) {
         return noticeMapper.findByOpenIdList(openid);
     }
 
     @Transactional
-    public Notice findById(Integer id){
+    public List<Notice> findByLibrarianOpenIdList(String openid) {
+        return noticeMapper.findByLibrarianOpenIdList(openid);
+    }
+
+    @Transactional
+    public Notice findById(Integer id) {
         return noticeMapper.findById(id);
     }
 }

@@ -1,10 +1,7 @@
 package com.wydxda.seat.controller;
 
 import com.wydxda.seat.model.*;
-import com.wydxda.seat.services.ReaderService;
-import com.wydxda.seat.services.SeatService;
-import com.wydxda.seat.services.SeatTempleteService;
-import com.wydxda.seat.services.SeatTypeService;
+import com.wydxda.seat.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +17,8 @@ public class seatController {
     @Autowired
     private ReaderService readerService;
     @Autowired
+    private LibrarianService librarianService;
+    @Autowired
     private SeatTypeService seatTypeService;
     @Autowired
     private SeatTempleteService seatTempleteService;
@@ -32,7 +31,8 @@ public class seatController {
             ) {
         try {
             Reader reader = readerService.findByOpenid(openid);
-            if(reader == null) {
+            Librarian librarian = librarianService.findByOpenid(openid);
+            if(reader == null && librarian == null) {
                 ResponseBean responseBean = new ResponseBean();
                 responseBean.setErrCode(-1);
                 responseBean.setErrMsg("请先绑定学校账号后重试");
@@ -42,9 +42,24 @@ public class seatController {
             Seats seats = seatService.findSeatListByTempleteId(templeteId);
             seatsResponseBean.setErrCode(0);
             seatsResponseBean.setErrMsg("success");
-            seatsResponseBean.setCampuses(reader.getSchool().getCampuses());
-            seatsResponseBean.setSchoolName(reader.getSchool().getSchoolName()+"图书馆");
-            seatsResponseBean.setSchoolUrl(reader.getSchool().getUrl());
+
+            String campuses = null;
+            String schoolName = null;
+            String schoolUrl = null;
+            if(reader != null){
+                campuses = reader.getSchool().getCampuses();
+                schoolName = reader.getSchool().getSchoolName()+"图书馆";
+                schoolUrl = reader.getSchool().getUrl();
+            }
+            else {
+                campuses = librarian.getSchool().getCampuses();
+                schoolName = librarian.getSchool().getSchoolName();
+                schoolUrl = librarian.getSchool().getUrl();
+            }
+
+            seatsResponseBean.setCampuses(campuses);
+            seatsResponseBean.setSchoolName(schoolName);
+            seatsResponseBean.setSchoolUrl(schoolUrl);
             seatsResponseBean.setRoomNum(seats.getTempleteRoomNum());
             seatsResponseBean.setSeatList(seats.getSeats());
             List<SeatType> seatTypeList = seatTypeService.findAll();
@@ -53,6 +68,7 @@ public class seatController {
         } catch (Exception e) {
             ResponseBean responseBean = new ResponseBean();
             responseBean.setErrCode(1);
+            e.printStackTrace();
             responseBean.setErrMsg("fail");
             return responseBean;
         }
@@ -64,13 +80,23 @@ public class seatController {
         try {
 
             Reader reader = readerService.findByOpenid(openid);
-            if(reader == null) {
+            Librarian librarian = librarianService.findByOpenid(openid);
+
+            if(reader == null && librarian == null) {
                 ResponseBean responseBean = new ResponseBean();
                 responseBean.setErrCode(-1);
                 responseBean.setErrMsg("请先绑定学校账号后重试");
                 return responseBean;
             }
-            List<SeatTemplete> list = seatTempleteService.findByTempleteIdList(reader.getSchool().getId());
+            Integer schoolId = 0;
+            if(reader != null){
+                schoolId = reader.getSchool().getId();
+            }else if(librarian != null){
+                schoolId = librarian.getS_id();
+            }
+
+            List<SeatTemplete> list = seatTempleteService.findByTempleteIdList(schoolId);
+
             ResponseBean responseBean = new ResponseBean();
             responseBean.setErrCode(0);
             responseBean.setErrMsg("success");
@@ -91,7 +117,16 @@ public class seatController {
             @RequestParam(value = "openid") String openid
             ){
         //TODO 管理员用户身份 openid 验证
-        return seatService.getNowSeatInfo(id);
+        try {
+            SeatNow nowSeatInfo = seatService.getNowSeatInfo(id);
+            if(nowSeatInfo == null){
+                return "空位";
+            }
+            return seatService.getNowSeatInfo(id);
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     @RequestMapping(value = "/reportSeat",method = RequestMethod.GET)

@@ -25,19 +25,27 @@
     </resultMap>
 
     <!--<insert id="insertHistory">-->
-        <!--insert into ls_history (openid,seat_id,type,end_time,start_time)-->
-        <!--value-->
-        <!--(-->
-            <!--#{openid},-->
-            <!--#{seatId},-->
-            <!--#{type},-->
-            <!--now(),-->
-            <!--(now()-interval #{minute} minute)-->
-        <!--)-->
+    <!--insert into ls_history (openid,seat_id,type,end_time,start_time)-->
+    <!--value-->
+    <!--(-->
+    <!--#{openid},-->
+    <!--#{seatId},-->
+    <!--#{type},-->
+    <!--now(),-->
+    <!--(now()-interval #{minute} minute)-->
+    <!--)-->
     <!--</insert>-->
 
     <select id="findByOpenIdList" resultMap="BaseResultMap">
         select t1.*, t2.id,t2.openid,t2.name,t2.nickname,t2.url from ls_readers t0,ls_notices t1,ls_librarians t2
+        where t0.openid=#{openid}
+        and t1.school_id=t0.s_id
+        and t1.librarian_id=t2.id
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="findByLibrarianOpenIdList" resultMap="BaseResultMap">
+        select t1.*, t2.id,t2.openid,t2.name,t2.nickname,t2.url from ls_librarians t0,ls_notices t1,ls_librarians t2
         where t0.openid=#{openid}
         and t1.school_id=t0.s_id
         and t1.librarian_id=t2.id
