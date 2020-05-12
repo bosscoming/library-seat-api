@@ -55,4 +55,11 @@
         SET openid=#{openid}
         WHERE id=#{id}
     </update>
+
+    <update id="logoutReaderOpenid">
+        UPDATE ls_readers
+        SET openid=NULL
+        WHERE openid=#{openid}
+    </update>
+
 </mapper>

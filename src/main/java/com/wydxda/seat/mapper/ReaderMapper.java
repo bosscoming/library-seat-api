@@ -9,4 +9,5 @@ public interface ReaderMapper {
     boolean updateReaderInfo(@Param("openid")String openid,@Param("id")Integer id,@Param("url")String url,@Param("nickname")String nickname);
 
     boolean updateReaderOpenid(@Param("openid")String openid,@Param("id") Integer id);
+    boolean logoutReaderOpenid(@Param("openid")String openid);
 }

@@ -9,4 +9,6 @@ public interface LibrarianMapper {
     boolean updateLibrarianInfo(@Param("openid")String openid,@Param("id")Integer id,@Param("url")String url,@Param("nickname")String nickname);
 
     boolean updateLibrarianOpenid(@Param("openid")String openid,@Param("id") Integer id);
+
+    void logoutLibrarianOpenid(@Param("openid")String openid);
 }

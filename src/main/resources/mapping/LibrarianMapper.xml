@@ -41,6 +41,12 @@
         WHERE id=#{id}
     </update>
 
+    <update id="logoutLibrarianOpenid">
+        UPDATE ls_librarians
+        SET openid=NULL
+        WHERE openid=#{openid}
+    </update>
+
     <update id="updateLibrarianOpenid">
         UPDATE ls_librarians
         SET openid=#{openid}

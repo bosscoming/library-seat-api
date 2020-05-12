@@ -33,4 +33,9 @@ public class LibrarianService {
     public boolean updateLibrarianOpenid(String openid,Integer id){
         return librarianMapper.updateLibrarianOpenid(openid,id);
     }
+
+    @Transactional
+    public void logoutLibrarianOpenid(String openid) {
+        librarianMapper.logoutLibrarianOpenid(openid);
+    }
 }

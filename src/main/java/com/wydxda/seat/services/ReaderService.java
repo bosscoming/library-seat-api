@@ -33,4 +33,9 @@ public class ReaderService {
     public boolean updateReaderOpenid(String openid,Integer id){
         return readerMapper.updateReaderOpenid(openid,id);
     }
+
+    @Transactional
+    public boolean logoutReaderOpenid(String openid){
+        return readerMapper.logoutReaderOpenid(openid);
+    }
 }
