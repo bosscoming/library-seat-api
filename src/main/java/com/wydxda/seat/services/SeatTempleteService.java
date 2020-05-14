@@ -16,8 +16,8 @@ public class SeatTempleteService {
     @Autowired
     private SeatTempleteMapper seatTempleteMapper;
     @Transactional
-    public List<SeatTemplete> findByTempleteList() {
-        return seatTempleteMapper.findByTempleteList();
+    public List<SeatTemplete> findByTempleteList(String sId) {
+        return seatTempleteMapper.findByTempleteList(sId);
     }
     @Transactional
     public void deleteTemplete(List<Integer> idList) {

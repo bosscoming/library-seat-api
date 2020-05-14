@@ -35,6 +35,14 @@
         AND ls_librarians.openid=#{openid}
     </select>
 
+    <select id="findByPwd" resultMap="BaseResultMap">
+        SELECT * FROM ls_librarians,ls_schools
+        WHERE ls_librarians.s_id=ls_schools.id
+        AND ls_librarians.id=#{id}
+        AND ls_librarians.pwd=#{pwd}
+    </select>
+
+
     <update id="updateLibrarianInfo">
         UPDATE ls_librarians
         SET openid=#{openid},url=#{url},nickname=#{nickname}

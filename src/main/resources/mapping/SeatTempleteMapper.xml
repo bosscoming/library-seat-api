@@ -18,7 +18,9 @@
     </insert>
 
     <select id="findByTempleteList" resultMap="BaseResultMap">
-        select * from ls_rooms_templete WHERE flag = 0 ORDER BY floor_num,room_num
+        select * from ls_rooms_templete
+        WHERE flag = 0 AND s_id=#{sId}
+        ORDER BY floor_num,room_num
     </select>
 
     <update id="deleteTemplete">

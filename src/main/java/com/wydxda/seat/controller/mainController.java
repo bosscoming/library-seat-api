@@ -68,11 +68,11 @@ public class mainController {
         return "success";
     }
 
-    @RequestMapping(value = "/findTempleteList", method = RequestMethod.POST)
+    @RequestMapping(value = "/findTempleteList", method = RequestMethod.GET)
     @ResponseBody
-    public Object findTempleteList() {
+    public Object findTempleteList(@RequestParam("schoolId")String sId) {
         try {
-            List<SeatTemplete> list = seatTempleteService.findByTempleteList();
+            List<SeatTemplete> list = seatTempleteService.findByTempleteList(sId);
             ResponseBean responseBean = new ResponseBean();
             responseBean.setErrCode(0);
             responseBean.setErrMsg("成功");

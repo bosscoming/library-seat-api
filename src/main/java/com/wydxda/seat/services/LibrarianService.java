@@ -25,6 +25,11 @@ public class LibrarianService {
     }
 
     @Transactional
+    public Librarian findByPwd(String id,String pwd){
+        return librarianMapper.findByPwd(id,pwd);
+    }
+
+    @Transactional
     public boolean updateLibrarianInfo(String openid,Integer id,String url,String nickname){
         return librarianMapper.updateLibrarianInfo(openid,id,url,nickname);
     }

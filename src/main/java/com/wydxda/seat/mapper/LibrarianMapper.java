@@ -11,4 +11,6 @@ public interface LibrarianMapper {
     boolean updateLibrarianOpenid(@Param("openid")String openid,@Param("id") Integer id);
 
     void logoutLibrarianOpenid(@Param("openid")String openid);
+
+    Librarian findByPwd(@Param("id") String id, @Param("pwd") String pwd);
 }

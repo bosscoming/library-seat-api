@@ -8,7 +8,7 @@ import java.util.List;
 public interface SeatTempleteMapper {
     void insertTemplete(@Param("seatTemplete")SeatTemplete seatTemplete);
 
-    List<SeatTemplete> findByTempleteList();
+    List<SeatTemplete> findByTempleteList(@Param("sId") String sId);
 
     void deleteTemplete(@Param("idList")List<Integer> idList);
 

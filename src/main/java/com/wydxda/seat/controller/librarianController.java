@@ -61,6 +61,29 @@ public class librarianController {
         return responseBean;
     }
 
+    @RequestMapping(value = "/findLibrarianByPwd", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findByPwd(
+            @RequestParam(value = "username") String id,
+            @RequestParam(value = "password") String pwd){
+        ResponseBean responseBean = new ResponseBean();
+        try {
+            Librarian librarian = librarianService.findByPwd(id,pwd);
+            if(librarian != null){
+                responseBean.setErrCode(0);
+                responseBean.setErrMsg("success");
+                responseBean.setData(librarian);
+            }else {
+                responseBean.setErrCode(-1);
+                responseBean.setErrMsg("用户名密码错误");
+            }
+        } catch (Exception e) {
+            responseBean.setErrCode(-1);
+            responseBean.setErrMsg("服务器忙...");
+        }
+        return responseBean;
+    }
+
     @RequestMapping(value = "/updateLibrarianInfo", method = RequestMethod.POST)
     @ResponseBody
     public Object updateLibrarianInfo(
