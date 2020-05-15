@@ -191,4 +191,29 @@ public class readerController {
         }
         return responseBean;
     }
+
+    @RequestMapping(value = "/getRemDuration",method = RequestMethod.GET)
+    @ResponseBody
+    public Object getRemDuration(
+            @RequestParam(value = "openid")String openid
+    ){
+        ResponseBean responseBean = new ResponseBean();
+        try {
+            Integer duration = historyService.getRemDuration(openid);
+            if(duration > 0){
+                responseBean.setErrCode(0);
+                responseBean.setErrMsg("success");
+                responseBean.setData(duration);
+            }else {
+                responseBean.setErrCode(-1);
+                responseBean.setErrMsg("fail");
+            }
+        }catch (Exception e){
+            responseBean.setErrCode(-1);
+            responseBean.setErrMsg("fail");
+            e.printStackTrace();
+        }
+        return responseBean;
+    }
+
 }

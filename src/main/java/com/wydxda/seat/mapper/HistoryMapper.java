@@ -16,4 +16,6 @@ public interface HistoryMapper {
     );
 
     List<History> findByOpenidList(@Param("openid") String openid);
+
+    Integer getRemDuration(@Param("openid") String openid);
 }

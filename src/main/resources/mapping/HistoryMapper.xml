@@ -17,8 +17,8 @@
             #{openid},
             #{seatId},
             #{type},
-            now(),
-            (now()-interval #{minute} minute)
+            (now()+interval #{minute} minute),
+            now()
         )
     </insert>
 
@@ -28,4 +28,14 @@
         and t1.type=t2.type
         ORDER BY start_time DESC
     </select>
+
+    <!--TODO 分钟 -》精确到秒-->
+    <select id="getRemDuration" resultType="Integer">
+        SELECT TIMESTAMPDIFF(MINUTE,now(),end_time)
+        from ls_history
+        where openid=#{openid}
+        ORDER BY end_time DESC limit 1
+    </select>
+
+
 </mapper>

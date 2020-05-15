@@ -29,4 +29,9 @@ public class HistoryService {
     public List<History> findByOpenidList(String openid){
         return historyMapper.findByOpenidList(openid);
     }
+
+    @Transactional
+    public Integer getRemDuration(String openid) {
+        return historyMapper.getRemDuration(openid);
+    }
 }
