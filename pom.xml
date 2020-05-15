@@ -12,7 +12,7 @@
     <artifactId>library-seat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>seat</name>
-    <description>library-seat-controller</description>
+    <description>library-seat</description>
     <packaging>war</packaging>
 
     <properties>
@@ -123,7 +123,7 @@
     </dependencies>
 
     <build>
-        <finalName>library-seat-controller</finalName>
+        <finalName>library-seat</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

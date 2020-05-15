@@ -20,6 +20,7 @@
     <select id="findByTempleteList" resultMap="BaseResultMap">
         select * from ls_rooms_templete
         WHERE flag = 0 AND s_id=#{sId}
+        and flag=0
         ORDER BY floor_num,room_num
     </select>
 
@@ -32,12 +33,14 @@
     </update>
 
     <select id="findTempleteById" resultMap="BaseResultMap">
-        select * from ls_rooms_templete WHERE id =#{id}
+        select * from ls_rooms_templete WHERE id =#{id} and flag=0
     </select>
 
     <select id="findByTempleteIdList" resultMap="BaseResultMap">
         select id,floor_num,room_num from ls_rooms_templete
         where s_id=#{sid}
+        and status=0
+        and flag=0
         group by floor_num,room_num
    </select>
 

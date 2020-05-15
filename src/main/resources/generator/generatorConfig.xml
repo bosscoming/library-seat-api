@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration >
-  <classPathEntry location="C:/Users/LiFen/Desktop/毕业设计/seat-select-api-master/seat-select-api-master/mysql-connector-java-8.0.19.jar"/>
+  <classPathEntry location="${basedir}/mysql-connector-java-8.0.19.jar"/>
 
   <context id="context1" >
   	
