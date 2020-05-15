@@ -96,9 +96,7 @@ public class seatController {
             }else if(librarian != null){
                 schoolId = librarian.getS_id();
             }
-
             List<SeatTemplete> list = seatTempleteService.findByTempleteIdList(schoolId);
-
             ResponseBean responseBean = new ResponseBean();
             responseBean.setErrCode(0);
             responseBean.setErrMsg("success");
@@ -107,7 +105,7 @@ public class seatController {
         } catch (Exception e) {
             ResponseBean responseBean = new ResponseBean();
             responseBean.setErrCode(1);
-            e.printStackTrace();
+//            responseBean.setErrMsg(e.toString());
             return responseBean;
         }
     }
