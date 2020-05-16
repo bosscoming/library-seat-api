@@ -1,7 +1,6 @@
 package com.wydxda.seat.model;
 
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +12,8 @@ public class History {
     private Integer id;
 //    private String openid;
     private Integer seatId;
+
+    private Integer roomNum;
 
     //    一对一
 //    private SeatObj seatObj;
