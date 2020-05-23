@@ -56,4 +56,16 @@
         select * from ls_notices where id = #{id}
     </select>
 
+    <insert id="insertNotice">
+        insert into ls_notices (imgUrl,title,content,school_id,librarian_id,create_time)
+        value
+        (
+          #{imgUrl},
+          #{title},
+          #{content},
+          #{school_id},
+          #{librarian_id},
+          now()
+        )
+    </insert>
 </mapper>

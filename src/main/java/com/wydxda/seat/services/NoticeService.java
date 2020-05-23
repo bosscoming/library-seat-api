@@ -31,4 +31,8 @@ public class NoticeService {
     public Notice findById(Integer id) {
         return noticeMapper.findById(id);
     }
+
+    public void insertNotice(String imgUrl, String title, String content, Integer school_id, Integer librarian_id) {
+        noticeMapper.insertNotice(imgUrl,title,content,school_id,librarian_id);
+    }
 }
