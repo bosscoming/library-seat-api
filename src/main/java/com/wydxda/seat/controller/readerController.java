@@ -200,7 +200,7 @@ public class readerController {
         ResponseBean responseBean = new ResponseBean();
         try {
             Integer duration = historyService.getRemDuration(openid);
-            if(duration > 0){
+            if(duration !=  null && duration > 0){
                 responseBean.setErrCode(0);
                 responseBean.setErrMsg("success");
                 responseBean.setData(duration);
