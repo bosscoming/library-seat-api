@@ -181,6 +181,7 @@ public class seatController {
 
         try{
             seatService.clearSeat(seatId);
+            responseBean.setErrCode(0);
             responseBean.setData(0);
             responseBean.setErrMsg("success");
         }catch (Exception e){
