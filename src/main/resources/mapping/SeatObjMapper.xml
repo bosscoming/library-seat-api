@@ -74,6 +74,13 @@
         where id=#{id}
     </update>
 
+    <!-- 清空座位状态 -->
+    <update id="clearSeat">
+        update ls_seats
+        type=0,release_time=NULL,reader_openid=NULL
+        where id=#{id}
+    </update>
+
 
     <select id="findByTempleteId" resultMap="BaseResultMap">
         select * from ls_seats WHERE templete_id = #{templeteId}

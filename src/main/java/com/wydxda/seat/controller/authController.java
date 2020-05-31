@@ -51,8 +51,8 @@ public class authController {
     public Object logout(@RequestParam(value = "openid") String openid) {
         ResponseBean responseBean = new ResponseBean();
         try {
-            readerService.logoutReaderOpenid(openid);
             librarianService.logoutLibrarianOpenid(openid);
+            readerService.logoutReaderOpenid(openid);
         } catch (Exception e) {
 
         }

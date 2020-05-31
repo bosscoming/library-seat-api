@@ -33,4 +33,6 @@ public interface SeatObjMapper {
     SeatObj checkSeatNowCanUse(@Param("id") Integer id);
 
     void updateSeatType(@Param("id") Integer id,@Param("type") String type);
+
+    void clearSeat(@Param("id")Integer id);
 }

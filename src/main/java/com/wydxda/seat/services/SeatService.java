@@ -85,6 +85,14 @@ public class SeatService {
     }
 
     @Transactional
+    public void clearSeat(
+            Integer id
+    ) {
+        seatObjMapper.clearSeat(id);
+    }
+
+
+    @Transactional
     public SeatNow getNowSeatInfo(Integer id) {
         return seatObjMapper.getNowSeatInfo(id);
     }

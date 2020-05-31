@@ -117,6 +117,10 @@ public class seatController {
             @RequestParam(value = "openid") String openid
             ){
         //TODO 管理员用户身份 openid 验证
+        Librarian librarian = librarianService.findByOpenid(openid);
+        if(librarian == null){
+            return null;
+        }
         try {
             SeatNow nowSeatInfo = seatService.getNowSeatInfo(id);
             if(nowSeatInfo == null){
@@ -153,6 +157,30 @@ public class seatController {
         String type = "5";
         try{
             seatService.updateSeatType(id,type);
+            responseBean.setData(0);
+            responseBean.setErrMsg("success");
+        }catch (Exception e){
+            responseBean.setErrMsg("fail");
+            responseBean.setErrCode(-1);
+        }
+        return responseBean;
+    }
+
+    @RequestMapping(value = "/clearSeat",method = RequestMethod.GET)
+    public Object clearSeat(
+            @RequestParam(value = "openid") String openid,
+            @RequestParam(value = "seatId") Integer seatId
+    ){
+        ResponseBean responseBean = new ResponseBean();
+        Librarian librarian = librarianService.findByOpenid(openid);
+        if(librarian == null) {
+            responseBean.setErrCode(-1);
+            responseBean.setErrMsg("请先绑定学校账号后重试");
+            return responseBean;
+        }
+
+        try{
+            seatService.clearSeat(seatId);
             responseBean.setData(0);
             responseBean.setErrMsg("success");
         }catch (Exception e){
