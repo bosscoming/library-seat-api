@@ -59,7 +59,8 @@ public class mainController {
                 } catch (Exception e) {
                     ResponseBean responseBean = new ResponseBean();
                     responseBean.setErrCode(1);
-                    responseBean.setErrMsg("失败");
+//                    responseBean.setErrMsg("失败");
+                    responseBean.setErrMsg(e.toString());
                     return responseBean;
                 }
             }
